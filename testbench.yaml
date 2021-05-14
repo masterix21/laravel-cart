@@ -1,2 +1,2 @@
 providers:
-  - Masterix21\LaravelCart\LaravelCartServiceProvider
+  - Masterix21\LaravelCart\CartServiceProvider

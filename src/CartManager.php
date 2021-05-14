@@ -56,32 +56,24 @@ class CartManager
         ]);
     }
 
-    public function set(CartItem $cartItem, int $quantity): void
+    public function set(CartItem $cartItem, int $quantity): CartItem
     {
-        $cartItem->quantity = $quantity;
-        $cartItem->save();
+        return $cartItem->setQuantity($quantity);
     }
 
-    public function increase(CartItem $cartItem, int $quantity = 1): void
+    public function increase(CartItem $cartItem, int $quantity = 1): CartItem
     {
-        $cartItem->quantity += $quantity;
-        $cartItem->save();
+        return $cartItem->increase($quantity);
     }
 
-    public function decrease(CartItem $cartItem, int $quantity = 1): void
+    public function decrease(CartItem $cartItem, int $quantity = 1): ?CartItem
     {
-        if (($cartItem->quantity - $quantity) <= 0) {
-            $this->remove($cartItem);
-            return;
-        }
-
-        $cartItem->quantity -= $quantity;
-        $cartItem->save();
+        return $cartItem->decrease($quantity);
     }
 
-    public function remove(CartItem $cartItem): void
+    public function remove(CartItem $cartItem): bool
     {
-        $cartItem->delete();
+        return $cartItem->delete();
     }
 
     public function clear(): void

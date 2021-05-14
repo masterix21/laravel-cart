@@ -1,10 +1,10 @@
 {
     "name": "masterix21/laravel_cart",
-    "description": "Cart integration for any Laravel Project",
+    "description": "Cart features for any Laravel Project",
     "keywords": [
         "masterix21",
         "laravel",
-        "laravel_cart"
+        "cart"
     ],
     "homepage": "https://github.com/masterix21/laravel_cart",
     "license": "MIT",
@@ -54,7 +54,7 @@
                 "CartServiceProvider"
             ],
             "aliases": {
-                "LaravelCart": "CartFacade"
+                "Cart": "Cart"
             }
         }
     },

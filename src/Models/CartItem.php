@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Masterix21\LaravelCart\Cart;
 
 class CartItem extends Model
 {
@@ -44,5 +45,34 @@ class CartItem extends Model
     public function item(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function setQuantity(int $quantity): self
+    {
+        $this->quantity = $quantity;
+        $this->save();
+
+        return $this;
+    }
+
+    public function increase(int $quantity = 1): self
+    {
+        $this->quantity += $quantity;
+        $this->save();
+
+        return $this;
+    }
+
+    public function decrease(int $quantity = 1): ?self
+    {
+        if (($this->quantity - $quantity) <= 0) {
+            $this->delete();
+            return null;
+        }
+
+        $this->quantity -= $quantity;
+        $this->save();
+
+        return $this;
     }
 }

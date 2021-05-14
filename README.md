@@ -1,9 +1,9 @@
 # Cart integration for any Laravel Project
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/masterix21/laravel_cart.svg?style=flat-square)](https://packagist.org/packages/masterix21/laravel_cart)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/masterix21/laravel_cart/run-tests?label=tests)](https://github.com/masterix21/laravel_cart/actions?query=workflow%3Arun-tests+branch%3Amaster)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/masterix21/laravel_cart/Check%20&%20fix%20styling?label=code%20style)](https://github.com/masterix21/laravel_cart/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/masterix21/laravel_cart.svg?style=flat-square)](https://packagist.org/packages/masterix21/laravel_cart)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/masterix21/laravel_cart.svg?style=flat-square)](https://packagist.org/packages/masterix21/laravel-cart)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/masterix21/laravel_cart/run-tests?label=tests)](https://github.com/masterix21/laravel-cart/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/masterix21/laravel_cart/Check%20&%20fix%20styling?label=code%20style)](https://github.com/masterix21/laravel-cart/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
+[![Total Downloads](https://img.shields.io/packagist/dt/masterix21/laravel_cart.svg?style=flat-square)](https://packagist.org/packages/masterix21/laravel-cart)
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
@@ -18,27 +18,49 @@ composer require masterix21/laravel-cart
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --provider="Masterix21\LaravelCart\LaravelCartServiceProvider" --tag="laravel-cart-migrations"
+php artisan vendor:publish --provider="Masterix21\LaravelCart\CartServiceProvider" --tag="laravel-cart-migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 ```bash
-php artisan vendor:publish --provider="Masterix21\LaravelCart\LaravelCartServiceProvider" --tag="laravel-cart-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
+php artisan vendor:publish --provider="Masterix21\LaravelCart\CartServiceProvider" --tag="laravel-cart-config"
 ```
 
 ## Usage
 
 ```php
-$laravel_cart = new Masterix21\LaravelCart();
-echo $laravel_cart->echoPhrase('Hello, Spatie!');
+$product = YourProductModel::first();
+
+//
+// Add a product to cart
+$cartItem = Cart::add(label: $product->name, item: $product, price: $product->price, quantity: 1);
+
+//
+// Change the cart item quantity
+Cart::set($cartItem, 2); // or
+$cartItem->setQuantity(2);
+
+//
+// Increase the cart item quantity
+Cart::increase($cartItem); // to increase of 1
+Cart::increase($cartItem, 5); // to increase of 5
+$cartItem->increase(); // to increase of 1
+$cartItem->increase(5); // to increase of 5
+
+//
+// Decrease the cart item quantity, and if the
+// quantity is zero, removes the item from the cart.
+Cart::decrease($cartItem); // to decrease of 1
+Cart::decrease($cartItem, 5); // to decrease of 5
+$cartItem->decrease(); // to decrease of 1
+$cartItem->decrease(5); // to decrease of 5
+
+// Retrieve all cart items
+$items = Cart::items();
+
+// Clear the cart
+Cart::clear();
 ```
 
 ## Testing
