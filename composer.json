@@ -1,12 +1,12 @@
 {
-    "name": "masterix21/laravel_cart",
+    "name": "masterix21/laravel-cart",
     "description": "Cart features for any Laravel Project",
     "keywords": [
         "masterix21",
         "laravel",
         "cart"
     ],
-    "homepage": "https://github.com/masterix21/laravel_cart",
+    "homepage": "https://github.com/masterix21/laravel-cart",
     "license": "MIT",
     "authors": [
         {
