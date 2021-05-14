@@ -51,10 +51,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "CartServiceProvider"
+                "Masterix21\\LaravelCart\\CartServiceProvider"
             ],
             "aliases": {
-                "Cart": "Cart"
+                "Cart": "Masterix21\\LaravelCart\\Cart"
             }
         }
     },
