@@ -2,6 +2,7 @@
 
 namespace Masterix21\LaravelCart;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cookie;
@@ -78,19 +79,32 @@ class CartManager
         return $cartItem->delete();
     }
 
+    public function query(): Builder
+    {
+        return CartItem::query()->where('cart_uuid', $this->uuid());
+    }
+
     public function clear(): void
     {
-        CartItem::query()
-            ->where('cart_uuid', $this->uuid())
+        $this->query()
             ->when(auth()->check(), fn ($query) => $query->orWhere('user_id', auth()->id()))
             ->delete();
     }
 
     public function items(): Collection
     {
-        return CartItem::query()
-            ->where('cart_uuid', $this->uuid())
+        return $this->query()
             ->when(auth()->check(), fn ($query) => $query->orWhere('user_id', auth()->id()))
             ->get();
+    }
+
+    public function isEmpty(): bool
+    {
+        return $this->query()->count() === 0;
+    }
+
+    public function isNotEmpty(): bool
+    {
+        return $this->query()->count() > 0;
     }
 }

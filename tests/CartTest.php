@@ -101,11 +101,10 @@ class CartTest extends TestCase
     /** @test */
     public function it_clear_the_cart(): void
     {
-        $product1 = Product::factory()->count(1)->createOne();
-        $product2 = Product::factory()->count(1)->createOne();
-
-        $cartItem1 = Cart::add(label: $product1->name, item: $product1, price: $product1->price, quantity: 21);
-        $cartItem2 = Cart::add(label: $product2->name, item: $product2, price: $product2->price, quantity: 2);
+        Product::factory()
+            ->count(2)
+            ->create()
+            ->each(fn (Product $p) => Cart::add(label: $p->name, item: $p, price: $p->price, quantity: 21));
 
         $this->assertEquals(2, CartItem::where('cart_uuid', Cart::uuid())->count());
 
@@ -123,5 +122,24 @@ class CartTest extends TestCase
             ->each(fn (Product $product) => Cart::add(label: $product->name, item: $product, price: $product->price));
 
         $this->assertCount(3, Cart::items());
+    }
+
+    /** @test */
+    public function verify_if_the_cart_is_empty(): void
+    {
+        Cart::clear();
+
+        $this->assertTrue(Cart::isEmpty());
+        $this->assertFalse(Cart::isNotEmpty());
+    }
+
+    /** @test */
+    public function verify_if_the_cart_is_not_empty(): void
+    {
+        $product = Product::factory()->count(1)->createOne();
+        Cart::add(label: $product->name, item: $product, price: $product->price);
+
+        $this->assertFalse(Cart::isEmpty());
+        $this->assertTrue(Cart::isNotEmpty());
     }
 }
