@@ -1,9 +1,9 @@
 # Cart integration for any Laravel Project
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/masterix21/laravel_cart.svg?style=flat-square)](https://packagist.org/packages/masterix21/laravel-cart)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/masterix21/laravel_cart/run-tests?label=tests)](https://github.com/masterix21/laravel-cart/actions?query=workflow%3Arun-tests+branch%3Amaster)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/masterix21/laravel_cart/Check%20&%20fix%20styling?label=code%20style)](https://github.com/masterix21/laravel-cart/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/masterix21/laravel_cart.svg?style=flat-square)](https://packagist.org/packages/masterix21/laravel-cart)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/masterix21/laravel-cart.svg?style=flat-square)](https://packagist.org/packages/masterix21/laravel-cart)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/masterix21/laravel-cart/run-tests?label=tests)](https://github.com/masterix21/laravel-cart/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/masterix21/laravel-cart/Check%20&%20fix%20styling?label=code%20style)](https://github.com/masterix21/laravel-cart/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
+[![Total Downloads](https://img.shields.io/packagist/dt/masterix21/laravel-cart.svg?style=flat-square)](https://packagist.org/packages/masterix21/laravel-cart)
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
