@@ -63,6 +63,25 @@ $items = Cart::items();
 Cart::clear();
 ```
 
+## Views using Blade
+Display the cart items counter that will auto-refresh on cart changes: 
+```html
+<!-- Automatic refresh the counter -->
+<livewire:cart-counter />
+
+<!-- Force the displayed value -->
+<livewire:cart-counter :count="10" no-auto-refresh />
+
+<!-- Customize the component using class argument like so -->
+<livewire:cart-counter class="text-xs text-white rounded-full bg-red-700" />
+
+<!-- Improve the result by its state -->
+<livewire:cart-counter class="text-xs rounded-full" 
+                       empty-class="bg-gray-100 text-gray-500" 
+                       not-empty-class="bg-red-700 text-white" />
+```
+
+
 ## Testing
 
 ```bash

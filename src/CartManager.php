@@ -11,10 +11,9 @@ use Masterix21\LaravelCart\Models\CartItem;
 
 class CartManager
 {
-    public function __construct(
-        public ?string $cartUuid = null
-    )
+    public function __construct(public ?string $cartUuid = null)
     {
+        // ...
     }
 
     public function uuid(): string
@@ -98,13 +97,18 @@ class CartManager
             ->get();
     }
 
+    public function count(): int
+    {
+        return $this->query()->count();
+    }
+
     public function isEmpty(): bool
     {
-        return $this->query()->count() === 0;
+        return $this->count() === 0;
     }
 
     public function isNotEmpty(): bool
     {
-        return $this->query()->count() > 0;
+        return $this->count() > 0;
     }
 }
