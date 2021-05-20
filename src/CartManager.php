@@ -5,6 +5,7 @@ namespace Masterix21\LaravelCart;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Masterix21\LaravelCart\Models\CartItem;
 
@@ -32,6 +33,12 @@ class CartManager
         return $uuid;
     }
 
+    protected function invalidateCache(): void
+    {
+        Cache::store(config('cart.cache'))->forget('cart-'. $this->uuid() .'-items');
+        Cache::store(config('cart.cache'))->forget('cart-'. $this->uuid() .'-count');
+    }
+
     public function add(
         string $label,
         Model $item,
@@ -44,6 +51,8 @@ class CartManager
         ?array $meta = null,
     ): CartItem
     {
+        $this->invalidateCache();
+
         return CartItem::create([
             'cart_uuid' => $this->uuid(),
             'user_id' => auth()->id(),
@@ -62,21 +71,29 @@ class CartManager
 
     public function set(CartItem $cartItem, int $quantity): CartItem
     {
+        $this->invalidateCache();
+
         return $cartItem->setQuantity($quantity);
     }
 
     public function increase(CartItem $cartItem, int $quantity = 1): CartItem
     {
+        $this->invalidateCache();
+
         return $cartItem->increase($quantity);
     }
 
     public function decrease(CartItem $cartItem, int $quantity = 1): ?CartItem
     {
+        $this->invalidateCache();
+
         return $cartItem->decrease($quantity);
     }
 
     public function remove(CartItem $cartItem): bool|null
     {
+        $this->invalidateCache();
+
         return $cartItem->delete();
     }
 
@@ -87,6 +104,8 @@ class CartManager
 
     public function clear(): void
     {
+        $this->invalidateCache();
+
         $this->query()
             ->when(auth()->check(), fn ($query) => $query->orWhere('user_id', auth()->id()))
             ->delete();
@@ -94,14 +113,24 @@ class CartManager
 
     public function items(): array|Collection
     {
-        return $this->query()
-            ->when(auth()->check(), fn ($query) => $query->orWhere('user_id', auth()->id()))
-            ->get();
+        return Cache::store(config('cart.cache'))
+            ->remember(
+                key: 'cart-'. $this->uuid() .'-items',
+                ttl: 3600,
+                callback: fn () => $this->query()
+                    ->when(auth()->check(), fn ($query) => $query->orWhere('user_id', auth()->id()))
+                    ->get()
+            );
     }
 
     public function count(): int
     {
-        return $this->query()->count();
+        return Cache::store(config('cart.cache'))
+            ->remember(
+                key: 'cart-'. $this->uuid() .'-count',
+                ttl: 3600,
+                callback: fn () => $this->query()->count()
+            );
     }
 
     public function isEmpty(): bool
