@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-cart` will be documented in this file.
 
+## 1.0.3 - 2021-05-20
+- 💅 Add cache to reduce the queries
+- 💅 Command to clear abandoned carts
+- 🐛 CookieJar::get error
+
 ## 1.0.2 - 2021-05-19 
 - 💅 Add `Cart::query`
 - 💅 Add `Cart::isEmpty`
