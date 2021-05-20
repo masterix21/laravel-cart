@@ -5,7 +5,6 @@ namespace Masterix21\LaravelCart;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 use Masterix21\LaravelCart\Models\CartItem;
 
@@ -18,16 +17,19 @@ class CartManager
 
     public function uuid(): string
     {
-        if (blank($this->cartUuid)) {
-            $this->cartUuid ??= session('cart-uuid')
-                ?? Cookie::get('cart-uuid')
-                ?? (string) Str::uuid();
+        $uuid = $this->cartUuid
+            ?? session()->get('cart-uuid')
+            ?? request()->cookie('cart-uuid')
+            ?? (string) Str::uuid();
 
-            session(['cart-uuid' => $this->cartUuid]);
-            cookie('cart-uuid', $this->cartUuid);
+        if (! $this->cartUuid) {
+            $this->cartUuid = $uuid;
+
+            session(['cart-uuid' => $uuid]);
+            cookie('cart-uuid', $uuid);
         }
 
-        return $this->cartUuid;
+        return $uuid;
     }
 
     public function add(
@@ -73,7 +75,7 @@ class CartManager
         return $cartItem->decrease($quantity);
     }
 
-    public function remove(CartItem $cartItem): bool
+    public function remove(CartItem $cartItem): bool|null
     {
         return $cartItem->delete();
     }
@@ -90,7 +92,7 @@ class CartManager
             ->delete();
     }
 
-    public function items(): Collection
+    public function items(): array|Collection
     {
         return $this->query()
             ->when(auth()->check(), fn ($query) => $query->orWhere('user_id', auth()->id()))
