@@ -142,4 +142,12 @@ class CartManager
     {
         return $this->count() > 0;
     }
+
+    public function contains(Model $model): bool
+    {
+        return $this->items()
+            ->where('item_type', $model::class)
+            ->where('item_id', $model->id)
+            ->count() > 0;
+    }
 }
