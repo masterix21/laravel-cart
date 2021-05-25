@@ -4,6 +4,7 @@ All notable changes to `laravel-cart` will be documented in this file.
 
 ## 1.0.4 - Unreleased
 - 💅 Contains method to verify if the cart contains a model
+- 💅 Search a model in the cart items
 
 ## 1.0.3 - 2021-05-20
 - 💅 Add cache to reduce the queries
