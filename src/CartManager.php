@@ -69,6 +69,13 @@ class CartManager
         ]);
     }
 
+    public function search(Model $model): Collection
+    {
+        return $this->items()
+            ->filter(fn (CartItem $cartItem) => $cartItem->item_type === $model::class
+                && $cartItem->item_id === $model->getKey());
+    }
+
     public function set(CartItem $cartItem, int $quantity): CartItem
     {
         $this->invalidateCache();
