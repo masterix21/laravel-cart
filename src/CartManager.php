@@ -33,7 +33,7 @@ class CartManager
         return $uuid;
     }
 
-    protected function invalidateCache(): void
+    public function invalidateCache(): void
     {
         Cache::store(config('cart.cache'))->forget('cart-'. $this->uuid() .'-items');
         Cache::store(config('cart.cache'))->forget('cart-'. $this->uuid() .'-count');
