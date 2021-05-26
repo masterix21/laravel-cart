@@ -13,21 +13,21 @@ trait InteractsWithCartEvents
     {
         Cart::invalidateCache();
 
-        $this->emit('cart::item-added', $item->id);
+        $this->emit('cart::item-added', $item?->id);
     }
 
     public function cartItemRemoved(?CartItem $item = null): void
     {
         Cart::invalidateCache();
 
-        $this->emit('cart::item-removed', $item->id);
+        $this->emit('cart::item-removed', $item?->id);
     }
 
     public function cartItemChanged(?CartItem $item = null): void
     {
         Cart::invalidateCache();
 
-        $this->emit('cart::item-changed', $item->id);
+        $this->emit('cart::item-changed', $item?->id);
     }
 
     public function cartCleared(): void
