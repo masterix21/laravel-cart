@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use Illuminate\Support\Traits\Macroable;
 use Masterix21\LaravelCart\Models\CartItem;
 
 class CartManager
 {
+    use Macroable;
+
     public function __construct(public ?string $cartUuid = null)
     {
         // ...
