@@ -17,19 +17,29 @@
     </slot>
     <div x-cloak
          x-show="show"
-         class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"
+         class="origin-top-right absolute right-0 mt-2 w-72 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none {{ $menuClass }}"
          role="menu"
          aria-orientation="vertical"
          aria-labelledby="menu-button"
          tabindex="-1">
-        <slot name="header">
+        @if (blank($header ?? null))
             <h4 class="font-semibold px-3 pt-3 text-gray-500">
                 {{ __('Your cart...') }}
             </h4>
-        </slot>
-        <slot name="content">
+        @else
+            {{ $header }}
+        @endif
+
+        @if (blank($content ?? null))
             <livewire:cart-items />
-        </slot>
-        <slot name="footer"></slot>
+        @else
+            {{ $content }}
+        @endif
+
+        @if (blank($footer ?? null))
+            <livewire:cart-items />
+        @else
+            {{ $footer }}
+        @endif
     </div>
 </div>
