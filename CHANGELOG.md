@@ -3,6 +3,7 @@
 All notable changes to `laravel-cart` will be documented in this file.
 
 ## 1.0.4 - Unreleased
+- 💅 x-cart-icon-dropdown menu-class attribute
 - 💅 Contains method to verify if the cart contains a model
 - 💅 Search a model in the cart items
 
