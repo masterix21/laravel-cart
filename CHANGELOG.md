@@ -6,6 +6,7 @@ All notable changes to `laravel-cart` will be documented in this file.
 - 💅 x-cart-icon-dropdown menu-class attribute
 - 💅 Contains method to verify if the cart contains a model
 - 💅 Search a model in the cart items
+- 💅 Add ability to search items by meta
 
 ## 1.0.3 - 2021-05-20
 - 💅 Add cache to reduce the queries
