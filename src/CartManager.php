@@ -72,11 +72,23 @@ class CartManager
         ]);
     }
 
-    public function search(Model $model): Collection
+    public function search(Model $model, ?array $meta = null): Collection
     {
         return $this->items()
-            ->filter(fn (CartItem $cartItem) => $cartItem->item_type === $model::class
-                && $cartItem->item_id === $model->getKey());
+            ->filter(static function (CartItem $cartItem) use ($model, $meta) {
+                $result = $cartItem->item_type === $model::class
+                    && $cartItem->item_id === $model->getKey();
+
+                if (! blank($meta)) {
+                    foreach ($meta as $key => $value) {
+                        $result = $result &&
+                                collect(data_get($cartItem->meta, $key))
+                                    ->contains($value);
+                    }
+                }
+
+                return $result;
+            });
     }
 
     public function set(CartItem $cartItem, int $quantity): CartItem
@@ -153,11 +165,8 @@ class CartManager
         return $this->count() > 0;
     }
 
-    public function contains(Model $model): bool
+    public function contains(Model $model, ?array $meta = null): bool
     {
-        return $this->items()
-            ->where('item_type', $model::class)
-            ->where('item_id', $model->id)
-            ->count() > 0;
+        return $this->search($model, $meta)->count() > 0;
     }
 }
