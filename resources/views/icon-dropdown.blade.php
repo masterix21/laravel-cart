@@ -1,6 +1,5 @@
 <div x-data="{show: false}"
-     x-on:click.away="show = false"
-     class="relative">
+     x-on:click.away="show = false">
     <slot name="button-content">
         <button @click="show = ! show"
                 class="flex items-center group focus:outline-none rounded-full focus:ring-2 focus:ring-offset-4 focus:ring-red-500">
@@ -17,7 +16,7 @@
     </slot>
     <div x-cloak
          x-show="show"
-         class="origin-top-right absolute right-0 mt-2 w-72 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none {{ $menuClass }}"
+         class="origin-top-right absolute right-0 z-100 mt-2 w-72 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none {{ $menuClass }}"
          role="menu"
          aria-orientation="vertical"
          aria-labelledby="menu-button"
