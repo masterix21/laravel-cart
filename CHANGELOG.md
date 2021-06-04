@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-cart` will be documented in this file.
 
+## 1.0.5 - 2021-06-04
+- 💅 Add ability to delete single item from x-cart-items
+- 🐛 z-index
+
 ## 1.0.4 - 2021-05-27
 - 💅 x-cart-icon-dropdown menu-class attribute
 - 💅 Contains method to verify if the cart contains a model
