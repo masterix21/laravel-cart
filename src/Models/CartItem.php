@@ -9,6 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
+/**
+ * @property mixed|string label
+ * @property mixed|string description
+ * @property array|mixed  meta
+ * @property mixed|string price
+ */
 class CartItem extends Model
 {
     use HasFactory;

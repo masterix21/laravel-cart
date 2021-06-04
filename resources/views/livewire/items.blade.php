@@ -18,6 +18,12 @@
                             @endif
                         </div>
                     </div>
+                    <div class="flex">
+                        <a wire:click="removeItem({{ $item->id }})"
+                           class="text-red-600 text-xs hover:text-red-400 cursor-pointer">
+                            {{ __('Remove') }}
+                        </a>
+                    </div>
                 </li>
             @endforeach
         </ul>
