@@ -3,8 +3,9 @@
 namespace Masterix21\LaravelCart\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Masterix21\LaravelCart\CartServiceProvider;
+use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Masterix21\LaravelCart\CartServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -21,6 +22,7 @@ class TestCase extends Orchestra
     {
         return [
             CartServiceProvider::class,
+            LivewireServiceProvider::class,
         ];
     }
 
