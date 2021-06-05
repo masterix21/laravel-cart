@@ -4,8 +4,8 @@ namespace Masterix21\LaravelCart\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Livewire\LivewireServiceProvider;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Masterix21\LaravelCart\CartServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
