@@ -11,9 +11,9 @@ class Counter extends Component
     use RefreshOnCartEvents;
 
     public ?int $count = null;
-    public string|array|null $class = null;
-    public string|array|null $emptyClass = null;
-    public string|array|null $notEmptyClass = null;
+    public string | array | null $class = null;
+    public string | array | null $emptyClass = null;
+    public string | array | null $notEmptyClass = null;
 
     public function render()
     {

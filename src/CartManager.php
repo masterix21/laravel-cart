@@ -52,8 +52,7 @@ class CartManager
         ?string $taxesLabel = null,
         ?string $description = null,
         ?array $meta = null,
-    ): CartItem
-    {
+    ): CartItem {
         $this->invalidateCache();
 
         return CartItem::create([
@@ -112,7 +111,7 @@ class CartManager
         return $cartItem->decrease($quantity);
     }
 
-    public function remove(CartItem $cartItem): bool|null
+    public function remove(CartItem $cartItem): bool | null
     {
         $this->invalidateCache();
 
@@ -133,7 +132,7 @@ class CartManager
             ->delete();
     }
 
-    public function items(): array|Collection
+    public function items(): array | Collection
     {
         return Cache::store(config('cart.cache'))
             ->remember(

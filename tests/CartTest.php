@@ -2,7 +2,6 @@
 
 namespace Masterix21\LaravelCart\Tests;
 
-use Illuminate\Database\Eloquent\Model;
 use Masterix21\LaravelCart\Cart;
 use Masterix21\LaravelCart\Models\CartItem;
 use Masterix21\LaravelCart\Tests\TestClasses\Product;

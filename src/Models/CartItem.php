@@ -72,6 +72,7 @@ class CartItem extends Model
     {
         if (($this->quantity - $quantity) <= 0) {
             $this->delete();
+
             return null;
         }
 
