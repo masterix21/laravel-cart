@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-cart` will be documented in this file.
 
+## 1.0.6 - 2021-06-07
+- 💅 Add CartManager::total() to gets the cart total
+
 ## 1.0.5 - 2021-06-04
 - 💅 Add ability to delete single item from x-cart-items
 - 🐛 z-index
