@@ -4,8 +4,8 @@ namespace Masterix21\LaravelCart\Tests;
 
 use Masterix21\LaravelCart\Cart;
 use Masterix21\LaravelCart\Models\CartItem;
-use Masterix21\LaravelCart\Tests\TestClasses\Product;
 use Masterix21\LaravelCart\Order;
+use Masterix21\LaravelCart\Tests\TestClasses\Product;
 
 class CartTest extends TestCase
 {
