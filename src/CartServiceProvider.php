@@ -19,9 +19,14 @@ class CartServiceProvider extends PackageServiceProvider
             ->hasTranslations()
             ->hasViews()
             ->hasViewComponents('cart', IconDropdown::class)
-            ->hasMigration('create_cart_items_table');
+            ->hasMigrations([
+                'create_cart_items_table',
+                'create_orders_table',
+                'create_order_items_table'
+            ]);
 
         $this->app->singleton('cart', fn () => new CartManager());
+        $this->app->singleton('order', fn () => new OrderManager());
     }
 
     public function packageBooted(): void

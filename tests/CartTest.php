@@ -5,6 +5,7 @@ namespace Masterix21\LaravelCart\Tests;
 use Masterix21\LaravelCart\Cart;
 use Masterix21\LaravelCart\Models\CartItem;
 use Masterix21\LaravelCart\Tests\TestClasses\Product;
+use Masterix21\LaravelCart\Order;
 
 class CartTest extends TestCase
 {
@@ -140,5 +141,18 @@ class CartTest extends TestCase
 
         $this->assertFalse(Cart::isEmpty());
         $this->assertTrue(Cart::isNotEmpty());
+    }
+
+    /** @test  */
+    public function it_convert_cart_item_to_order(): void
+    {
+        $product = Product::factory()
+            ->count(3)
+            ->create()
+            ->each(fn (Product $product) => Cart::add(label: $product->name, item: $product, price: $product->price));
+
+        $order = Order::create(cartItem: Cart::items(), price: $product->first()->price);
+
+        $this->assertTrue($order->exists);
     }
 }

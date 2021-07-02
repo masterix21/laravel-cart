@@ -40,5 +40,11 @@ class TestCase extends Orchestra
 
         include_once __DIR__.'/../database/migrations/create_cart_items_table.php.stub';
         (new \CreateCartItemsTable())->up();
+
+        include_once __DIR__.'/../database/migrations/create_orders_table.php.stub';
+        (new \CreateOrdersTable())->up();
+
+        include_once __DIR__.'/../database/migrations/create_order_items_table.php.stub';
+        (new \CreateOrderItemsTable())->up();
     }
 }
