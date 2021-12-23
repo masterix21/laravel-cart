@@ -28,6 +28,11 @@ class OrderItem extends Model
         return $this->morphTo();
     }
 
+    public function model(): MorphTo
+    {
+        return $this->morphTo();
+    }
+
     public function order(): BelongsTo
     {
         return $this->belongsTo(config('cart.models.order'), 'order_id');

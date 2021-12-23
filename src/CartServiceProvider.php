@@ -22,7 +22,8 @@ class CartServiceProvider extends PackageServiceProvider
             ->hasMigrations([
                 'create_cart_items_table',
                 'create_orders_table',
-                'create_order_items_table'
+                'create_order_items_table',
+                'create_payments_table'
             ]);
 
         $this->app->singleton('cart', fn () => new CartManager());

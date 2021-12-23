@@ -25,10 +25,6 @@ class Order extends Model
         'discount' => MoneyCast::class,
         'total' => MoneyCast::class,
         'confirmed_at' => 'datetime',
-        'refused_at' => 'datetime',
-        'paid_at' => 'datetime',
-        'payment_confirmed_at' => 'datetime',
-        'refunded_at' => 'datetime',
     ];
 
     public function user(): BelongsTo
@@ -36,8 +32,18 @@ class Order extends Model
         return $this->belongsTo(config('cart.models.user'), 'user_id');
     }
 
-    public function items(): HasMany
+    public function item(): HasMany
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function payment(): HasMany
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function model(): MorphTo
+    {
+        return $this->morphTo();
     }
 }

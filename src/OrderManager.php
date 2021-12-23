@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Masterix21\LaravelCart\Models\CartItem;
 use Masterix21\LaravelCart\Models\Order;
 use Masterix21\LaravelCart\Models\OrderItem;
+use Masterix21\LaravelCart\Models\Payment;
 
 class OrderManager
 {
@@ -61,12 +62,17 @@ class OrderManager
             'email' => $email,
             'phone' => $phone,
             'confirmed_at' => now(),
-            'payment_provider' => $paymentProvider,
             'price' => $price,
             'shipment_costs' => $shipmentCosts,
             'taxes' => $taxes,
             'discount' => $discount,
             'total' => $total,
+        ]);
+
+        Payment::create([
+            'order_id' => $order->id,
+            'payment_provider' => $paymentProvider,
+            'amount' => $total
         ]);
 
         foreach ($cartItem as $item) {
@@ -91,5 +97,24 @@ class OrderManager
             'taxes_label' => $cartItem->taxes_label,
             'meta' => $cartItem->meta,
         ]);
+    }
+
+    public function search(Order $order, Model $model, ?array $meta = null): Collection
+    {
+        return $order->item
+            ->filter(static function (OrderItem $orderItem) use ($model, $meta) {
+                $result = $orderItem->item_type === $model::class
+                    && $orderItem->item_id === $model->getKey();
+
+                if (! blank($meta)) {
+                    foreach ($meta as $key => $value) {
+                        $result = $result &&
+                            collect(data_get($orderItem->meta, $key))
+                                ->contains($value);
+                    }
+                }
+
+                return $result;
+            });
     }
 }

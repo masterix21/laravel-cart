@@ -13,6 +13,8 @@ class CreateOrdersTable extends Migration
 
             $table->uuid('order_uuid')->index();
 
+            $table->nullableMorphs('model');
+
             $table->foreignId('user_id')->nullable()
                 ->references('id')->on('users')
                 ->cascadeOnUpdate()->cascadeOnDelete();
@@ -21,20 +23,12 @@ class CreateOrdersTable extends Migration
             $table->string('phone')->nullable();
 
             $table->dateTimeTz('confirmed_at')->nullable();
-            $table->dateTimeTz('refused_at')->nullable();
-            $table->dateTimeTz('paid_at')->nullable();
-            $table->string('payment_provider', 60)->nullable();
-            $table->dateTimeTz('payment_confirmed_at')->nullable();
-            $table->string('payment_identifier')->nullable();
 
             $table->decimal('price', 14, 2)->default(0);
             $table->decimal('shipment_costs', 14, 2)->default(0);
             $table->decimal('taxes', 14, 2)->default(0);
             $table->decimal('discount', 14, 2)->default(0);
             $table->decimal('total', 14, 2)->default(0);
-
-            $table->dateTimeTz('refunded_at')->nullable();
-            $table->string('refund_identifier')->nullable();
 
             $table->timestamps();
         });
