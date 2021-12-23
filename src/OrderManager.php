@@ -71,7 +71,7 @@ class OrderManager
         Payment::create([
             'order_id' => $order->id,
             'payment_provider' => $paymentProvider,
-            'amount' => $total
+            'amount' => $total,
         ]);
 
         foreach ($cartItem as $item) {
